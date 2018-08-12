@@ -1,0 +1,161 @@
+sad v0.110.291.1
+Copyright © 2004 adminware, llc.  All rights reserved.
+
+Introduction
+============
+
+sad is a SpamAssassin Daemon for Win32 a la spamd.  Commands are accepted
+and results are returned via tcp socket.
+
+
+Usage
+=====
+
+sad {options}
+
+  -config        Configuration File
+
+  -stop          Stop Service
+  -install       Install Service
+  -install auto  Install Service (Auto Startup)
+  -remove        Remove Service
+
+  -help | ?      Show This Help Text
+  -man           Display Documentation
+  -version       Show Version
+
+
+Revision History
+================
+ 0.110.291.1   -- Rebuilt with updated components. [PB]
+ 0.109.207.1   -- Removed Reload command support.
+ 0.108.203.1   -- Added key support (for keeping it usable only on licensed
+                  servers). [PB]
+ 0.107.145.1   -- Fixed bug it stop via service control and rebuilt with
+                  updated components. [PB]
+ 0.106.126.1   -- Fixed bug in maxCheckSize if not specified. [PB]
+ 0.105.120.1   -- Rewrite option now relies solely on SA prefs. [PB]
+ 0.104.119.1   -- Added MaxCheckSize option. [PB]
+ 0.103.114.1   -- Added Rewrite option. [PB]
+ 0.102.101.1   -- Added stop command-line option.  Added several protocol
+                  commands (VERSION, SHUTDOWN, RELOAD).  Added protocol
+                  command reference (see below). [PB]
+ 0.101.101.1   -- Internal rebuild. [PB]
+ 0.101.99.1    -- Implemented logfile rollover via forced naming, changed
+                  LogFile option to LogDir. [PB]
+ 0.100.98.1    -- Optimizations for speed and stability after very extensive
+                  load testing. [PB]
+ 0.99.97.1     -- Added several configuration options (MailRoot, LogGMT,
+                  LogConnects, LogClientNames, ShowBanner). [PB]
+               -- Modified logfile format slightly. [PB]
+ 0.98.96.1     -- First beta release. [PB]
+
+
+To-Do List
+==========
+ - Nothing at this time.
+
+
+Configuration
+=============
+
+All configuration is managed through the sad.ini (or alternative specified
+on command-line).  If any are omitted or left blank, the specified default
+is used unless otherwise noted.
+
+Sections [sadup], [CustomRulesActive] and [CustomRulesStable] are not used
+by sad.  See the documentation for sadup for more information.
+
+SECTION:		[sad]
+
+HostName		Specifies the hostname the daemon should listen on.  For
+			security reasons, it defaults to localhost.
+
+Port			Specifies the port to use.  The default is 7941.
+
+MailRoot		If specified, all paths in commands are ignored and only
+			files in this location will be checked.  If omitted, paths
+			will be checked. While this shouldn't necessarily be a
+			security concern, it's better to be safe and specify the
+			root.
+
+Debug		Defaults to 0 (off).  This is only helpful if running via
+			command-line instead of as a service and shows the actual
+			SpamAssassin processing of mail.
+
+LogDir		Defaults to the console (no logging).  Otherwise, all
+			logging will be written to the path specified.
+
+LogGMT		Defaults to 0 (no).  Determines whether local time or GMT
+			time is used in logging.
+
+LogConnects	Defaults to 0 (no).  Determines whether connect/disconnect
+			messages are logged.  Otherwise only the commands are
+			logged.
+
+LogClientNames	Defaults to 0 (no).  In a production environment, the
+			daemon should only be connected to from the same machine,
+			therefore the client hostname and IP will always be the
+			same.  Not logging could save a bit of space and time.
+
+ShowBanner	Defaults to 0 (no).  If set to yes, a banner showing the
+			program name, version and ready to accept message will be
+			displayed to the client on connect.
+
+Rewrite		Defaults to 0 (no).  If set to yes, the email will be
+			rewritten Spam Assassin style.
+
+MaxCheckSize	Defaults to 0.  If set to non-zero, the email will be
+			skipped if its size is greater than this (in bytes).
+
+SECTION:		[SpamAssassin]
+
+DefRules		No default - the location of SpamAssassin's default rules
+			must be specified.
+
+SiteRules		No default - the location of SpamAssassin's local/site
+			rules must be specified.
+
+
+Protocols Command Reference
+===========================
+
+PING
+
+The PING command is useful for low-overhead monitoring.  Returns 'PONG'.
+
+Example:		PING
+			PONG
+
+
+CHECK
+
+CHECK is used to score the given email file.
+
+Example:		CHECK 50f9daf53eb8b94ebbfa0552688fe4b4.mail
+			0.999;BAYES_44,NO_RDNS2
+
+
+VERSION
+
+Returns the version of sad.
+
+Example:		VERSION
+			sad v0.110.291.1
+
+
+RELOAD
+
+Used to reload the configuration (from the sad.ini) and reset the
+SpamAssassin object when rulesets are updated.
+
+Example:		RELOAD
+			CONFIG RELOADED
+
+
+SHUTDOWN
+
+Used to terminate the service.
+
+Example:		SHUTDOWN
+			SHUTTING DOWN

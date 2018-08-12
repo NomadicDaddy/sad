@@ -1,0 +1,104 @@
+sadup v0.110.291.1
+Copyright © 2004 adminware, llc.  All rights reserved.
+
+Introduction
+============
+
+sadup is a ruleset updater for SpamAssassin Daemon for Win32 a la
+RulesDuJour.  This can be used without sad (the [sad] section of the ini is
+ignored by sadup).
+
+
+Usage
+=====
+
+sadup {options}
+
+  -config        Configuration File
+
+  -install       Install Service
+  -install auto  Install Service (Auto Startup)
+  -remove        Remove Service
+
+  -help | ?      Show This Help Text
+  -man           Display Documentation
+  -version       Show Version
+
+
+Revision History
+================
+ 0.110.291.1   -- Rebuilt with updated components. [PB]
+ 0.109.207.1   -- Changed reload method to service vs. socket command for
+                  reliability and speed purposes.
+ 0.108.203.1   -- Added key support (for keeping it usable only on licensed
+                  servers). [PB]
+ 0.107.203.1   -- Added Reload option. [PB]
+ 0.106.145.1   -- Rebuilt with updated components. [PB]
+ 0.105.120.1   -- Added size of downloaded rulesets to notices. [PB]
+ 0.104.119.1   -- Added ServerIdentity option for notices. [PB]
+ 0.103.114.1   -- Log on failure to send RELOAD to sad, attempt restart. [PB]
+ 0.102.101.1   -- If updates are received, send RELOAD to sad. [PB]
+ 0.101.101.1   -- Added options for admin notification of updated rulesets
+                  (NotifyAdmin, NotifyAddress, SMTPServer). [PB]
+ 0.100.99.1    -- Implemented logfile rollover via forced naming, changed
+                  LogFile option to LogDir. [PB]
+ 0.99.97.1     -- Added configuration option (LogGMT). [PB]
+ 0.98.96.1     -- First beta release. [PB]
+
+
+To-Do List
+==========
+ - Implement RuleSet Def Updates (currently stubbed).
+
+
+Configuration
+=============
+
+All configuration is managed through the sad.ini (or alternative specified
+on command-line).  If any are omitted or left blank, the specified default
+is used unless otherwise noted.
+
+The [SpamAssassin] section is primarily used for sad itself.  The options
+not specifically relevant to sadup have been omitted.
+
+SECTION:		[SpamAssassin]
+
+SiteRules		No default - the location of SpamAssassin's local/site
+			rules must be specified.
+
+SECTION:		[sadup]
+
+Reload		Defaults to 0 (no).  Reload sad on new/updated rulesets.
+
+CheckInterval	Defaults to 12 hours.  Determines the time between checking for
+			ruleset updates.
+
+LogDir		Defaults to the console (no logging).  Otherwise, all
+			logging will be written to the path specified.
+
+LogGMT		Defaults to 0 (no).  Determines whether local time or GMT
+			time is used in logging.
+
+ServerIdentity	No default.  Just a name used in the notification email for
+			identification purposes.
+
+NotifyAdmin	Defaults to 0 (no).  Determines whether an administrative notice
+			of updated rules should be sent.
+
+NotifyAddress	The address to email update notifications.
+
+SMTPServer	The SMTP server to use to send the update notice.
+
+SECTION:		[CustomRulesActive]
+
+The rulesets in this section are checked at every interval specified above.
+
+[filename]	[url]
+
+SECTION:		[CustomRulesStable]
+
+The rulesets in this section are only checked for existence.  If they're
+missing, they're downloaded.  Otherwise no update checks are made for them
+as their author has specified that they're stable and will not change.
+
+[filename]	[url]
