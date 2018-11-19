@@ -1,5 +1,5 @@
 sad v0.110.291.1
-Copyright © 2004 adminware, llc.  All rights reserved.
+Copyright ï¿½ 2004 adminware, llc
 
 Introduction
 ============

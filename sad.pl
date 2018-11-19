@@ -3,8 +3,8 @@
    --add=Getopt::Long;Config::IniFiles;IO::Socket::INET;IO::File;Mail::SpamAssassin;Mail::SpamAssassin::NoMailAudit
    --info "CompanyName      = adminware, llc;
            FileDescription  = sad - SpamAssassin Daemon for Win32;
-           Copyright        = Copyright © 2004-2005 adminware, llc.  All rights reserved.;
-           LegalCopyright   = Copyright © 2004-2005 adminware, llc.  All rights reserved.;
+           Copyright        = Copyright ï¿½ 2004-2005 adminware, llc;
+           LegalCopyright   = Copyright ï¿½ 2004-2005 adminware, llc;
            LegalTrademarks  = adminware is a trademark of adminware, llc.  SpamAssassin is a trademark of Apache Software Foundation;
            SupportURL       = http://adminware.com/sad/;
            InternalName     = sad;
@@ -21,7 +21,7 @@ our %Config = (ServiceName => 'sad');
 
 our $awp = 'sad';
 our $ver = '0.110.291.1';
-our $cpy = 'Copyright © 2004-2005 adminware, llc.  All rights reserved.';
+our $cpy = 'Copyright ï¿½ 2004-2005 adminware, llc';
 
 use strict;
 #use warnings;

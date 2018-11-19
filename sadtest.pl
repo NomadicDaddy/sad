@@ -2,8 +2,8 @@
    --exe sadtest.exe --trim-implicit --shared private --force --dyndll --norunlib --verbose --freestanding --nologo --icon "d:/adminware/artwork/aw.ico"
    --info "CompanyName      = adminware, llc;
            FileDescription  = sadtest - Tester for SpamAssassin Daemon for Win32;
-           Copyright        = Copyright © 2004-2005 adminware, llc.  All rights reserved.;
-           LegalCopyright   = Copyright © 2004-2005 adminware, llc.  All rights reserved.;
+           Copyright        = Copyright ï¿½ 2004-2005 adminware, llc;
+           LegalCopyright   = Copyright ï¿½ 2004-2005 adminware, llc;
            LegalTrademarks  = adminware is a trademark of adminware, llc.  SpamAssassin is a trademark of Apache Software Foundation;
            SupportURL       = http://adminware.com/sad/;
            InternalName     = sadtest;
